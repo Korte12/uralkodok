@@ -1,0 +1,17 @@
+table td:first-child, table th:first-child{
+    background-color: aqua;
+}
+
+table td:last-child, table th:last-child{
+    background-color: aqua;
+}
+
+table, td, th{
+    border: 5px solid black;
+    border-collapse: collapse;
+}
+
+.error{
+    color: red;
+    box-shadow: 5px;
+}
