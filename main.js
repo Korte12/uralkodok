@@ -56,33 +56,34 @@ const tbody = document.createElement('tbody'); // Létrehozom a tbody-t
 table.appendChild(tbody); // Hozzá appendelem a table-hez
 
 // Sorok kitöltése
-for (let i = 0; i < array.length; i++) {
-  const row1 = document.createElement('tr'); // Első sor az adott névhez
-  tbody.appendChild(row1); // Hozzá appendelem a tbody-hoz
-
-  const cell1 = document.createElement('td'); // Név cella
-  cell1.innerHTML = array[i].nev;//Megadom hogy mi legyen a cella értéke
-  cell1.rowSpan = 2; // Két sort fed le
-  row1.appendChild(cell1); // Hozzá appendelem a sorhoz
-
-  const cell2 = document.createElement('td'); // Első esemény cella
-  cell2.innerHTML = array[i].esemeny1;//Megadom hogy mi legyen a cella értéke
-  row1.appendChild(cell2);// Hozzá appendelem a sorhoz
-
-  const cell3 = document.createElement('td'); // Első évszám cella
-  cell3.innerHTML = array[i].evszam1;//Megadom hogy mi legyen a cella értéke
-  row1.appendChild(cell3);// Hozzá appendelem a sorhoz
-
-  const row2 = document.createElement('tr'); // Második sor az eseményhez
-  tbody.appendChild(row2);// Hozzá appendelem a tbody-hoz
-
-  const cell4 = document.createElement('td'); // Második esemény cella
-  cell4.innerHTML = array[i].esemeny2;//Megadom hogy mi legyen a cella értéke
-  row2.appendChild(cell4);// Hozzá appendelem a sorhoz
-
-  const cell5 = document.createElement('td'); // Második évszám cella
-  cell5.innerHTML = array[i].evszam2;//Megadom hogy mi legyen a cella értéke
-  row2.appendChild(cell5);// Hozzá appendelem a sorhoz
-}
-
-//
+for (let i = 0; i < array.length; i++) { //Az array-en végigiterálok
+    const row1 = document.createElement('tr'); // Első sor az adott névhez
+    tbody.appendChild(row1); // Hozzá appendelem a tbody-hoz
+  
+    const cell1 = document.createElement('td'); // Létrehozok egy td-t
+    cell1.innerHTML = array[i].nev; // Megadom hogy mi legyen a cella értéke
+    cell1.rowSpan = array[i].esemeny2 && array[i].evszam2 ? 2 : 1; // Ha van második esemény, két sort fed le
+    row1.appendChild(cell1); // Hozzá appendelem a sorhoz
+  
+    const cell2 = document.createElement('td'); // Létrehozok egy td-t
+    cell2.innerHTML = array[i].esemeny1; // Megadom hogy mi legyen a cella értéke
+    row1.appendChild(cell2); // Hozzá appendelem a sorhoz
+  
+    const cell3 = document.createElement('td'); // Létrehozok egy td-t
+    cell3.innerHTML = array[i].evszam1; // Megadom hogy mi legyen a cella értéke
+    row1.appendChild(cell3); // Hozzá appendelem a sorhoz
+  
+    // Sor ahol van több esemény
+    if (array[i].esemeny2 && array[i].evszam2) { //Akkor teljesül ha van esemeny2 és evszam2
+      const row2 = document.createElement('tr'); // Létrehozok egy tr-t
+      tbody.appendChild(row2); // Hozzá appendelem a tbody-hoz
+  
+      const cell4 = document.createElement('td'); // Létrehozok egy td-t
+      cell4.innerHTML = array[i].esemeny2; // Megadom hogy mi legyen a cella értéke
+      row2.appendChild(cell4); // Hozzá appendelem a sorhoz
+  
+      const cell5 = document.createElement('td'); // Létrehozok egy td-t
+      cell5.innerHTML = array[i].evszam2; // Megadom hogy mi legyen a cella értéke
+      row2.appendChild(cell5); // Hozzá appendelem a sorhoz
+    }
+  }
