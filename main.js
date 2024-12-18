@@ -1,11 +1,3 @@
-const headerarray = [ // A tömb létehozása
-   { // A tömb első elemét létrehozom
-    elso: "Uralkodó", //Értékadás
-    masodik: "Esemény",//Értékadás
-    harmadik : "Évszám"//Értékadás
-   }
-];
-
 const array = [// A tömb létehozása
     {// A tömb első elemét létrehozom
         nev : "I. István",//Értékadás
@@ -36,54 +28,65 @@ const array = [// A tömb létehozása
 ];
 
 
-const table = document.createElement('table'); // Létrehozom a table-t
-document.body.appendChild(table); // Hozzá appendelem a body-hoz
+const table = document.createElement('table'); //Létrehozok egy table elemet ami a táblázatom lesz
+document.body.appendChild(table); //Hozzá appendelem a body-hoz
 
-const thead = document.createElement('thead'); // Létrehozom a thead-et
-table.appendChild(thead); // Hozzá appendelem a table-hez
+const thead = document.createElement('thead'); //Létrehozok egy thead elemet
+table.appendChild(thead);//Hozzá appendelem a táblázathoz
 
-const tr = document.createElement('tr'); // Létrehozom a tr-t
-thead.appendChild(tr); // Hozzá appendelem a thead-hez
+const tr = document.createElement('tr');//Létrehozok egy sor elemet
+thead.appendChild(tr);//Hozzá appendelem a fej részhez
 
-// Fejléc kitöltése
-for (let element in headerarray[0]) {//Elkezdem a for ciklust, értéketadok
-  const th = document.createElement('th'); // Létrehozom a th-t
-  th.innerHTML = headerarray[0][element]; // Megadom az értéket a headerarray-ből
-  tr.appendChild(th); // Hozzá appendelem a sorhoz
-}
+const tbody = document.createElement('tbody');//Létrehozok egy tbody elemet
+table.appendChild(tbody)//Hozzá appendelem a table-höz
 
-const tbody = document.createElement('tbody'); // Létrehozom a tbody-t
-table.appendChild(tbody); // Hozzá appendelem a table-hez
+const uralkodo_nev = document.createElement('th')//Létrehozok egy th elemet
+uralkodo_nev.innerHTML = "Uralkodo" //Megadom az értékét
+tr.appendChild(uralkodo_nev);//Hozzá appendelem a sorhoz
 
-// Sorok kitöltése
-for (let i = 0; i < array.length; i++) { //Az array-en végigiterálok
-    const row1 = document.createElement('tr'); // Első sor az adott névhez
-    tbody.appendChild(row1); // Hozzá appendelem a tbody-hoz
-  
-    const cell1 = document.createElement('td'); // Létrehozok egy td-t
-    cell1.innerHTML = array[i].nev; // Megadom hogy mi legyen a cella értéke
-    cell1.rowSpan = array[i].esemeny2 && array[i].evszam2 ? 2 : 1; // Ha van második esemény, két sort fed le
-    row1.appendChild(cell1); // Hozzá appendelem a sorhoz
-  
-    const cell2 = document.createElement('td'); // Létrehozok egy td-t
-    cell2.innerHTML = array[i].esemeny1; // Megadom hogy mi legyen a cella értéke
-    row1.appendChild(cell2); // Hozzá appendelem a sorhoz
-  
-    const cell3 = document.createElement('td'); // Létrehozok egy td-t
-    cell3.innerHTML = array[i].evszam1; // Megadom hogy mi legyen a cella értéke
-    row1.appendChild(cell3); // Hozzá appendelem a sorhoz
-  
-    // Sor ahol van több esemény
-    if (array[i].esemeny2 && array[i].evszam2) { //Akkor teljesül ha van esemeny2 és evszam2
-      const row2 = document.createElement('tr'); // Létrehozok egy tr-t
-      tbody.appendChild(row2); // Hozzá appendelem a tbody-hoz
-  
-      const cell4 = document.createElement('td'); // Létrehozok egy td-t
-      cell4.innerHTML = array[i].esemeny2; // Megadom hogy mi legyen a cella értéke
-      row2.appendChild(cell4); // Hozzá appendelem a sorhoz
-  
-      const cell5 = document.createElement('td'); // Létrehozok egy td-t
-      cell5.innerHTML = array[i].evszam2; // Megadom hogy mi legyen a cella értéke
-      row2.appendChild(cell5); // Hozzá appendelem a sorhoz
+const esemeny = document.createElement('th')//Létrehozok egy th elemet
+esemeny.innerHTML = "Esemeny"//Megadom az értékét
+tr.appendChild(esemeny)//Hozzá appendelem a sorhoz
+
+const evszam = document.createElement('th');//Létrehozok egy th elemet
+evszam.innerHTML = "Evszam"//Megadom az értékét
+tr.appendChild(evszam)//Hozzá appendelem a sorhoz
+
+render();//Meghivom a render függvényt
+
+function render(){//Elkezdem megirni a render függvényt
+    const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
+    tbody.innerHTML = ''; // tbody innerHtml-je üres string
+
+    for (element of array) {//Elkezdem a for ciklust. Kiválasztom az array ,,element"-jét
+        let row = document.createElement('tr');//Létrehozok egy tr-t
+
+        const uralkodoCell = document.createElement('td'); //Létrehozok egy td-t
+        uralkodoCell.innerHTML = element.nev; //Megadom az innerHTML értékét
+        uralkodoCell.rowSpan = element.esemeny2 ? 2 : 1; // rowSpan-t vezetek be a megfelelő elrendezés érdekében
+        row.appendChild(uralkodoCell);//Hozzá appendelem a sorhoz
+
+        const esemeny1 = document.createElement('td');//Létrehozok egy td-t
+        esemeny1.innerHTML = element.esemeny1;//Megadom az innerHTML értékét
+        row.appendChild(esemeny1);//Hozzá appendelem a sorhoz
+
+        const evszam1 = document.createElement('td');//Létrehozok egy td-t
+        evszam1.innerHTML = element.evszam1;//Megadom az innerHTML értékét
+        row.appendChild(evszam1);//Hozzá appendelem a sorhoz
+
+        tablebody.appendChild(row); //Hozzá appendelem a sort
+
+        if (element.esemeny2 && element.evszam2) {//If elágazás létrehozása
+            const row1 = document.createElement('tr');//Létrehozok egy tr-t
+
+            const esemeny2 = document.createElement('td');//Létrehozok egy td-t
+            esemeny2.innerHTML = element.esemeny2;//Megadom hogy mi legyen a cella értéke
+            row1.appendChild(esemeny2);//Hozzá appendelem a sorhoz
+
+            const evszam2 = document.createElement('td');//Létrehozok egy td-t
+            evszam2.innerHTML = element.evszam2;//Megadom hogy mi legyen a cella értéke
+            row1.appendChild(evszam2);//Hozzá appendelem a sorhoz
+            tablebody.appendChild(row1); //Hozzá appendelem a tablebody-hoz
+        }
     }
-  }
+}
