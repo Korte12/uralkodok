@@ -101,7 +101,7 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
     const evszam1 = document.getElementById("evszam1")//Lekérem a html form id-ját
     const evszam2 = document.getElementById("evszam2")//Lekérem a html form id-ját
 
-    const uzenet = "Az uralkodó nevének megadása kötelező" // Megadjuk a hibaüzenetet
+
     const thisForm = e.currentTarget; //Eltárolom egy változóban az értéket
     const errorElements = thisForm.querySelectorAll(".error"); // A formon belüli összes error classal rendelkező elemet kiválasztjuk
     for(const errorElement of errorElements){ // Végig megyünk az összes visszakapott elemen
@@ -110,60 +110,34 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
    
     let valid = true; // A valid változó értéke igaz
 
-
     const uralkodo_nevvalue = uralkodo_nev.value ///Eltárolom egy változóban az értéket
     const esemeny1value = esemeny1.value///Eltárolom egy változóban az értéket
     const esemeny2value = esemeny2.value///Eltárolom egy változóban az értéket
     const evszam1value = evszam1.value///Eltárolom egy változóban az értéket
     const evszam2value = evszam2.value//Eltárolom egy változóban az értéket
+
    
-
-    if(uralkodo_nevvalue === ""){ // Ha az uralkodó név mező üres
-        const parent = uralkodo_nev.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
-        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
-        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
-            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
-        }
-        valid = false; // A valid változó értékét hamisra cseréljük
+    if(!ValidateField(uralkodo_nev, "A vezetéknév megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false; //A valid értéke hamis lesz
     }
 
-    if(esemeny1value === ""){ // Ha az uralkodó név mező üres
-        const parent = esemeny1.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
-        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
-        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
-            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
-        }
-        valid = false; // A valid változó értékét hamisra cseréljük
+    if(!ValidateField(esemeny1, "Az esemény megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
     }
 
-    if(esemeny2value === ""){ // Ha az uralkodó név mező üres
-        const parent = esemeny2.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
-        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
-        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
-            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
-        }
-        valid = false; // A valid változó értékét hamisra cseréljük
+    if(!ValidateField(esemeny2, "Az esemény megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
     }
 
-    if(evszam1value === ""){ // Ha az uralkodó név mező üres
-        const parent = evszam1.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
-        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
-        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
-            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
-        }
-        valid = false; // A valid változó értékét hamisra cseréljük
+    if(!ValidateField(evszam1, "Az évszám megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
     }
 
-    if(evszam2value === ""){ // Ha az uralkodó név mező üres
-        const parent = evszam2.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
-        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
-        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
-            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
-        }
-        valid = false; // A valid változó értékét hamisra cseréljük
+    if(!ValidateField(evszam2, "Az évszám megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
     }
 
-    if(valid){
+    if(valid){//Ha valid
         const new_person = { //Létrehozok egy új elemet
             uralkodo_nev: uralkodo_nevvalue, //Értéket adok
             esemeny1: esemeny1value,//Értéket adok
@@ -176,3 +150,16 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
         thisForm.reset(); // visszaallitjuk a formunkat az alapallapotba
     }
 })
+
+function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
+    let valid = true;//A valid értéke igaz
+    if(inputElement.value === ""){//Ha az inputElement üres
+        const parentElement = inputElement.parentElement //Értéket adunk
+        const error = parentElement.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+        if(error != "") { // Ha találtunk ilyen mezőt akkor -->
+            error.innerHTML = ErrorMessage; // Kiirjuk a hibaüzenetet
+        }
+        valid = false // A valid változó értékét hamisra cseréljük
+
+    }
+}
