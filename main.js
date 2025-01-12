@@ -54,44 +54,46 @@ const array = [// A tömb létehozása
     const tbody = document.createElement('tbody'); // Létrehozok egy tbody elemet
     table.appendChild(tbody); // Hozzá appendelem a table-höz
 
-function render(){//Elkezdem megirni a render függvényt
-    const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
-    tbody.innerHTML = ''; // tbody innerHtml-je üres string
 
-    for (element of array) {//Elkezdem a for ciklust. Kiválasztom az array ,,element"-jét
-        let row = document.createElement('tr');//Létrehozok egy tr-t
 
-        const uralkodoCell = document.createElement('td'); //Létrehozok egy td-t
-        uralkodoCell.innerHTML = element.uralkodo_nev; //Megadom az innerHTML értékét
-        uralkodoCell.rowSpan = element.esemeny2 ? 2 : 1; // rowSpan-t vezetek be a megfelelő elrendezés érdekében
-        row.appendChild(uralkodoCell);//Hozzá appendelem a sorhoz
-
-        const esemeny1 = document.createElement('td');//Létrehozok egy td-t
-        esemeny1.innerHTML = element.esemeny1;//Megadom az innerHTML értékét
-        row.appendChild(esemeny1);//Hozzá appendelem a sorhoz
-
-        const evszam1 = document.createElement('td');//Létrehozok egy td-t
-        evszam1.innerHTML = element.evszam1;//Megadom az innerHTML értékét
-        row.appendChild(evszam1);//Hozzá appendelem a sorhoz
-
-        tablebody.appendChild(row); //Hozzá appendelem a sort
-
-        if (element.esemeny2 && element.evszam2) {//If elágazás létrehozása
-            const row1 = document.createElement('tr');//Létrehozok egy tr-t
-
-            const esemeny2 = document.createElement('td');//Létrehozok egy td-t
-            esemeny2.innerHTML = element.esemeny2;//Megadom hogy mi legyen a cella értéke
-            row1.appendChild(esemeny2);//Hozzá appendelem a sorhoz
-
-            const evszam2 = document.createElement('td');//Létrehozok egy td-t
-            evszam2.innerHTML = element.evszam2;//Megadom hogy mi legyen a cella értéke
-            row1.appendChild(evszam2);//Hozzá appendelem a sorhoz
-            tablebody.appendChild(row1); //Hozzá appendelem a tablebody-hoz
+    function render(){//Elkezdem megirni a render függvényt
+        const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
+        tbody.innerHTML = ''; // tbody innerHtml-je üres string
+    
+        for (element of array) {//Elkezdem a for ciklust. Kiválasztom az array ,,element"-jét
+            let row = document.createElement('tr');//Létrehozok egy tr-t
+    
+            const uralkodoCell = document.createElement('td'); //Létrehozok egy td-t
+            uralkodoCell.innerHTML = element.uralkodo_nev; //Megadom az innerHTML értékét
+            uralkodoCell.rowSpan = element.esemeny2 ? 2 : 1; // rowSpan-t vezetek be a megfelelő elrendezés érdekében
+            row.appendChild(uralkodoCell);//Hozzá appendelem a sorhoz
+    
+            const esemeny1 = document.createElement('td');//Létrehozok egy td-t
+            esemeny1.innerHTML = element.esemeny1;//Megadom az innerHTML értékét
+            row.appendChild(esemeny1);//Hozzá appendelem a sorhoz
+    
+            const evszam1 = document.createElement('td');//Létrehozok egy td-t
+            evszam1.innerHTML = element.evszam1;//Megadom az innerHTML értékét
+            row.appendChild(evszam1);//Hozzá appendelem a sorhoz
+    
+            tablebody.appendChild(row); //Hozzá appendelem a sort
+    
+            if (element.esemeny2 && element.evszam2) {//If elágazás létrehozása
+                const row1 = document.createElement('tr');//Létrehozok egy tr-t
+    
+                const esemeny2 = document.createElement('td');//Létrehozok egy td-t
+                esemeny2.innerHTML = element.esemeny2;//Megadom hogy mi legyen a cella értéke
+                row1.appendChild(esemeny2);//Hozzá appendelem a sorhoz
+    
+                const evszam2 = document.createElement('td');//Létrehozok egy td-t
+                evszam2.innerHTML = element.evszam2;//Megadom hogy mi legyen a cella értéke
+                row1.appendChild(evszam2);//Hozzá appendelem a sorhoz
+                tablebody.appendChild(row1); //Hozzá appendelem a tablebody-hoz
+            }
         }
     }
-}
-
-render();//Meghivom a render függvényt
+    
+    render();//Meghivom a render függvényt
 
 const form = document.getElementById("form") //Lekérem a html form id-ját
 
