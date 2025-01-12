@@ -107,14 +107,18 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
     for(const errorElement of errorElements){ // Végig megyünk az összes visszakapott elemen
         errorElement.innerHTML = ''; // Töröljük az elem tartalmát
     }
-    
+
+    const NonEmpty = getNonEmpty(esemeny1, esemeny2) //Eltárolom egy változóban az eseményeket
+
+    const NonEmpty2 = getNonEmpty2(evszam1, evszam2) //Eltárolom egy változóban az évszámokat
+
     const uralkodo_nevvalue = uralkodo_nev.value ///Eltárolom egy változóban az értéket
     const esemeny1value = esemeny1.value///Eltárolom egy változóban az értéket
     const esemeny2value = esemeny2.value///Eltárolom egy változóban az értéket
     const evszam1value = evszam1.value///Eltárolom egy változóban az értéket
     const evszam2value = evszam2.value//Eltárolom egy változóban az értéket
 
-    if(simpleValid(uralkodo_nev, esemeny1, esemeny2, evszam1, evszam2)){//Ha valid
+    if(simpleValid(uralkodo_nev, NonEmpty, esemeny2, NonEmpty2, evszam2)) {//Ha valid
         const new_person = { //Létrehozok egy új elemet
             uralkodo_nev: uralkodo_nevvalue, //Értéket adok
             esemeny1: esemeny1value,//Értéket adok
@@ -127,6 +131,13 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
         thisForm.reset(); // visszaallitjuk a formunkat az alapallapotba
     }
 })
+
+function getNonEmpty(esemeny1, esemeny2) { //Elkezdem megirni a fucntiont
+    return (esemeny1.value === "" && esemeny2.value !== "") ? esemeny2 : esemeny1; //Ellenőrzöm hogy üres e az érték 
+} 
+function getNonEmpty2(evszam1, evszam2) { //Elkezdem megirni a fucntiont
+    return (evszam1.value === "" && evszam2.value !== "") ? evszam2 : evszam1; //Ellenőrzöm hogy üres e az érték 
+}
 
 function simpleValid(uralkodo_nevinput, esemeny1input, esemeny2input, evszam1input, evszam2input) { //Megirom a validációs függvényt
 
