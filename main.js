@@ -30,6 +30,11 @@ const array = [// A tömb létehozása
     const table = document.createElement('table'); //Létrehozok egy table elemet ami a táblázatom lesz
     document.body.appendChild(table); //Hozzá appendelem a body-hoz
 
+    /**
+     * Megcsináljuk a table header-jét
+     * @param {HTMLTableElement} table - //A tablenk
+     */
+
     function createTableHeader(table) {//Elkezdem megirni a függvényt
         const thead = document.createElement('thead'); // Létrehozok egy thead elemet
         table.appendChild(thead); //Hozzá appendelem a táblázathoz
@@ -54,7 +59,10 @@ const array = [// A tömb létehozása
     const tbody = document.createElement('tbody'); // Létrehozok egy tbody elemet
     table.appendChild(tbody); // Hozzá appendelem a table-höz
 
-
+/**
+     * A table renderelése
+     * @param {Array} array - Az array tartalmazza az összes adatunkat
+     */
 
     function render(){//Elkezdem megirni a render függvényt
         const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
@@ -191,8 +199,20 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
         errorElement.innerHTML = ''; // Töröljük az elem tartalmát
     }
 
+    /**
+     * 
+     * @param {HTMLInputElement} esemeny1 - Az első bevitel
+     * @param {HTMLInputElement} esemeny2 - A második bevitel
+     * @returns {HTMLInputElement} - Az üres input
+     */
     const NonEmpty = getNonEmpty(esemeny1, esemeny2) //Eltárolom egy változóban az eseményeket
 
+    /**
+     * 
+     * @param {HTMLInputElement} evszam1 - Az első bevitel
+     * @param {HTMLInputElement} evszam2 - A második bevitel
+     * @returns {HTMLInputElement} - Az üres input
+     */
     const NonEmpty2 = getNonEmpty2(evszam1, evszam2) //Eltárolom egy változóban az évszámokat
 
     const uralkodo_nevvalue = uralkodo_nev.value ///Eltárolom egy változóban az értéket
@@ -222,6 +242,15 @@ function getNonEmpty2(evszam1, evszam2) { //Elkezdem megirni a fucntiont
     return (evszam1.value === "" && evszam2.value !== "") ? evszam2 : evszam1; //Ellenőrzöm hogy üres e az érték 
 }
 
+/**
+     * A validálás
+     * @param {HTMLInputElement} uralkodo_nevinput - Az uralkodó név inputja
+     * @param {HTMLInputElement} esemeny1input - Az első esemeény inputja
+     * @param {HTMLInputElement} esemeny2input - A második esemény inputja
+     * @param {HTMLInputElement} evszam1input - Az első évszám inputja
+     * @param {HTMLInputElement} evszam2input - A második évszám inputja
+     * @returns {boolean} - Igazzal tér vissza ha a mezők validak ellenkező esetben hamissal
+     */
 function simpleValid(uralkodo_nevinput, esemeny1input, esemeny2input, evszam1input, evszam2input) { //Megirom a validációs függvényt
 
     let valid = true;
@@ -248,6 +277,13 @@ function simpleValid(uralkodo_nevinput, esemeny1input, esemeny2input, evszam1inp
 
     return valid; //Visszatérek a valid-ra akkor hamis ha nem ment át a validáción egyéb esetben igaz
 }
+
+ /**
+     * Valodálás
+     * @param {HTMLInputElement} inputElement - Az input amit validálni kell
+     * @param {string} ErrorMessage - Az error üzenet ha üres a mező
+     * @returns {boolean} - Igazzal tér vissza ha a mezők validak ellenkező esetben hamissal
+     */
 
 function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
     let valid = true;//A valid értéke igaz
