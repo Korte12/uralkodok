@@ -38,15 +38,15 @@ const array = [// A tömb létehozása
         thead.appendChild(tr);//Hozzá appendelem a táblázathoz
     
         const uralkodo_nev = document.createElement('th');//Létrehozok egy th elemet
-        uralkodo_nev.innerHTML = "Uralkodo"; //Megadom az értékét
+        uralkodo_nev.innerHTML = "Uralkodó"; //Megadom az értékét
         tr.appendChild(uralkodo_nev);//Hozzá appendelem a sorhoz
     
         const esemeny = document.createElement('th');
-        esemeny.innerHTML = "Esemeny";//Megadom az értékét
+        esemeny.innerHTML = "Esemény";//Megadom az értékét
         tr.appendChild(esemeny);//Hozzá appendelem a sorhoz
     
         const evszam = document.createElement('th');
-        evszam.innerHTML = "Evszam";//Megadom az értékét
+        evszam.innerHTML = "Évszám";//Megadom az értékét
         tr.appendChild(evszam);//Hozzá appendelem a sorhoz
     }
     createTableHeader(table); // Meghívom a függvényt hogy létrehozza a táblázat fejlécét
@@ -95,7 +95,86 @@ const array = [// A tömb létehozása
     
     render();//Meghivom a render függvényt
 
-const form = document.getElementById("form") //Lekérem a html form id-ját
+    const container = document.createElement("div"); // Létrehozok egy div-et
+    document.body.appendChild(container); // Hozzá appendelem a body-hoz
+
+    const form = document.createElement("form"); // Létrehozok egy form elemet
+    container.appendChild(form); // Hozzá appendelem a container-hez
+
+    const label1 = document.createElement("label"); // Létrehozok egy label elemet
+    label1.setAttribute("for", "uralkodo_nev"); // Tulajdonságot adok
+    label1.innerHTML = 'Uralkodó neve:'; //Megadom mi legyen a kiirt szöveg
+    form.appendChild(label1);//Hozzá appendelem a formhoz
+
+    const input1 = document.createElement("input"); ////Létrehozok egy inputot
+    input1.type = "text";//Megadom a tipusát
+    input1.id = "uralkodo_nev";//Megadom az id-t
+    form.appendChild(input1); // Hozzá appendelem a formhoz
+
+    const error1 = document.createElement("div"); ;//Létrehozok egy div-et
+    error1.className = "error";//Megcsinálom hogy pirossal jelenjen meg az error
+    form.appendChild(error1); // Hozzá appendelem a formhoz
+
+    const label2 = document.createElement("label");//Létrehozok egy labelt
+    label2.setAttribute("for", "esemeny1"); // Tulajdonságot adok
+    label2.innerHTML = "Első esemény:";//Megadom hogy mit irjon ki
+    form.appendChild(label2); // Hozzá appendelem a formhoz
+
+    const input2 = document.createElement("input");//Létrehozok egy inputot
+    input2.type = "text";//Megadom a tipusát
+    input2.id = "esemeny1";//Megadom az id-t
+    form.appendChild(input2); // Hozzá appendelem a formhoz
+
+    const error2 = document.createElement("div");;//Létrehozok egy div-et
+    error2.className = "error";//Megcsinálom hogy pirossal jelenjen meg az error
+    form.appendChild(error2); // Hozzá appendelem a formhoz
+
+    const label3 = document.createElement("label");//Létrehozok egy labelt
+    label3.setAttribute("for", "evszam1"); // Tulajdonságot adok
+    label3.innerHTML = "Első esemény évszáma:";//Megadom mit irjon ki
+    form.appendChild(label3); // Hozzá appendelem a formhoz
+
+    const input3 = document.createElement("input");//Létrehozok egy inputot
+    input3.type = "text";//Megadom a tipusát
+    input3.id = "evszam1";//Megadom az id-t
+    form.appendChild(input3); // Hozzá appendelem a formhoz
+
+    const error3 = document.createElement("div");;//Létrehozok egy div-et
+    error3.className = "error";//Megcsinálom hogy pirossal jelenjen meg az error
+    form.appendChild(error3); // Hozzá appendelem a formhoz
+
+    const label4 = document.createElement("label");//Létrehozok egy labelt
+    label4.setAttribute("for", "esemeny2"); // Tulajdonságot adok
+    label4.innerHTML = "Második esemény:";
+    form.appendChild(label4); // Hozzá appendelem a formhoz
+
+    const input4 = document.createElement("input");//Létrehozok egy inputot
+    input4.type = "text";//Megadom a tipusát
+    input4.id = "esemeny2";//Megadom az id-t
+    form.appendChild(input4);//Hozzá appendelem a formhoz
+
+    const error4 = document.createElement("div");;//Létrehozok egy div-et
+    error4.className = "error";//Megcsinálom hogy pirossal jelenjen meg az error
+    form.appendChild(error4);//Hozzá appendelem a formhoz
+
+    const label5 = document.createElement("label");//Létrehozok egy labelt
+    label5.setAttribute("for", "evszam2");// Tulajdonságot adok
+    label5.innerHTML = "Második esemény évszáma:";// Megadom hogy mit irjon ki
+    form.appendChild(label5);//Hozzá appendelem a formhoz
+
+    const input5 = document.createElement("input");//Létrehozok egy inputot
+    input5.type = "text";//Megadom a tipusát
+    input5.id = "evszam2";//Megadom az id-t
+    form.appendChild(input5);//Hozzá appendelem a formhoz
+
+    const error5 = document.createElement("div");//Létrehozok egy div-et
+    error5.className = "error";//Megcsinálom hogy pirossal jelenjen meg az error
+    form.appendChild(error5);//Hozzá appendelem a formhoz
+
+    // Hozzáadás gomb
+    const button = document.createElement("button"); //Létrehozok egy gombot
+    button.innerHTML = "Hozzáadás";//Megadom hogy mit irjon ki
+    form.appendChild(button);//Hozzá appendelem a formhoz
 
 form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
     e.preventDefault()//Megakadályozom hogy a böngésző alapártelmezetten lefusson
@@ -183,3 +262,4 @@ function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
     }
     return valid; //Visszatérek a valid-ra akkor hamis ha nem ment át a validáción egyéb esetben igaz
 }
+
