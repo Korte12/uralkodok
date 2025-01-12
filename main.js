@@ -107,37 +107,14 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
     for(const errorElement of errorElements){ // Végig megyünk az összes visszakapott elemen
         errorElement.innerHTML = ''; // Töröljük az elem tartalmát
     }
-   
-    let valid = true; // A valid változó értéke igaz
-
+    
     const uralkodo_nevvalue = uralkodo_nev.value ///Eltárolom egy változóban az értéket
     const esemeny1value = esemeny1.value///Eltárolom egy változóban az értéket
     const esemeny2value = esemeny2.value///Eltárolom egy változóban az értéket
     const evszam1value = evszam1.value///Eltárolom egy változóban az értéket
     const evszam2value = evszam2.value//Eltárolom egy változóban az értéket
 
-   
-    if(!ValidateField(uralkodo_nev, "A vezetéknév megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
-        valid = false; //A valid értéke hamis lesz
-    }
-
-    if(!ValidateField(esemeny1, "Az esemény megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
-        valid = false;//A valid értéke hamis lesz
-    }
-
-    if(!ValidateField(esemeny2, "Az esemény megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
-        valid = false;//A valid értéke hamis lesz
-    }
-
-    if(!ValidateField(evszam1, "Az évszám megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
-        valid = false;//A valid értéke hamis lesz
-    }
-
-    if(!ValidateField(evszam2, "Az évszám megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
-        valid = false;//A valid értéke hamis lesz
-    }
-
-    if(valid){//Ha valid
+    if(simpleValid(uralkodo_nev, esemeny1, esemeny2, evszam1, evszam2)){//Ha valid
         const new_person = { //Létrehozok egy új elemet
             uralkodo_nev: uralkodo_nevvalue, //Értéket adok
             esemeny1: esemeny1value,//Értéket adok
@@ -151,6 +128,33 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
     }
 })
 
+function simpleValid(uralkodo_nevinput, esemeny1input, esemeny2input, evszam1input, evszam2input) { //Megirom a validációs függvényt
+
+    let valid = true;
+
+    if(!ValidateField(uralkodo_nevinput, "Az uralkodó név megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false; //A valid értéke hamis lesz
+    }
+
+    if(!ValidateField(esemeny1input, "Az esemény megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
+    }
+
+    if(!ValidateField(esemeny2input, "Az esemény megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
+    }
+
+    if(!ValidateField(evszam1input, "Az évszám megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
+    }
+
+    if(!ValidateField(evszam2input, "Az évszám megadása kötelező")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
+    }
+
+    return valid; //Visszatérek a valid-ra akkor hamis ha nem ment át a validáción egyéb esetben igaz
+}
+
 function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
     let valid = true;//A valid értéke igaz
     if(inputElement.value === ""){//Ha az inputElement üres
@@ -162,4 +166,5 @@ function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
         valid = false // A valid változó értékét hamisra cseréljük
 
     }
+    return valid; //Visszatérek a valid-ra akkor hamis ha nem ment át a validáción egyéb esetben igaz
 }
