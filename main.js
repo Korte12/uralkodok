@@ -91,6 +91,19 @@ function render(){//Elkezdem megirni a render függvényt
 
 render();//Meghivom a render függvényt
 
+function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
+    let valid = true;//A valid értéke igaz
+    if(inputElement.value === ""){//Ha az inputElement üres
+        const parentElement = inputElement.parentElement //Értéket adunk
+        const error = parentElement.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+        if(error != "") { // Ha találtunk ilyen mezőt akkor -->
+            error.innerHTML = ErrorMessage; // Kiirjuk a hibaüzenetet
+        }
+        valid = false // A valid változó értékét hamisra cseréljük
+    }
+    return valid //Valid értékkel térek vissza
+}
+
 const form = document.getElementById("form") //Lekérem a html form id-ját
 
 form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
@@ -116,31 +129,16 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
    
     let valid = true; // A valid változó értéke igaz
 
-    if(uralkodo_V === ""){ // Ha az uralkodó név mező üres
-        const parent = uralkodo_nevH.parentElement; // Eltárolom egy változóban az uralkodó nevet
-        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
-        if(errors != undefined) { // Ha találtunk ilyen mezőt akkor -->
-            errors.innerHTML = "A mező kitöltése kötelező!"; // Kiirjuk a hibaüzenetet
-        }
-        valid = false; // A valid változó értékét hamisra cseréljük
+    if(!ValidateField(uralkodo_nevH, "A mező kitöltése kötelező!")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false; //A valid értéke hamis lesz
     }
 
-    if(esemeny1_V === ""){ // Ha az esemény mező üres
-        const parent = esemeny1H.parentElement; // Eltárolom egy változóban az eseményt
-        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
-        if(errors != undefined) { // Ha találtunk ilyen mezőt akkor -->
-            errors.innerHTML = "A mező kitöltése kötelező!"; // Kiirjuk a hibaüzenetet
-        }
-        valid = false; // A valid változó értékét hamisra cseréljük
+    if(!ValidateField(esemeny1H, "A mező kitöltése kötelező!")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
     }
 
-    if(evszam1_V === ""){ // Ha az évszám mező üres
-        const parent = evszam1H.parentElement; // Eltárolom egy változóban az évszámot
-        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
-        if(errors != undefined) { // Ha találtunk ilyen mezőt akkor -->
-            errors.innerHTML = "A mező kitöltése kötelező!"; // Kiirjuk a hibaüzenetet
-        }
-        valid = false; // A valid változó értékét hamisra cseréljük
+    if(!ValidateField(evszam1H, "A mező kitöltése kötelező!")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
     }
 
     if(valid){
