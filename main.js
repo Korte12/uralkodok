@@ -27,3 +27,152 @@ const array = [// A tömb létehozása
     }
 ]
 
+
+const table = document.createElement('table'); //Létrehozok egy table elemet ami a táblázatom lesz
+document.body.appendChild(table); //Hozzá appendelem a body-hoz
+
+const thead = document.createElement('thead'); //Létrehozok egy thead elemet
+table.appendChild(thead);//Hozzá appendelem a táblázathoz
+
+const tr = document.createElement('tr');//Létrehozok egy sor elemet
+thead.appendChild(tr);//Hozzá appendelem a fej részhez
+
+const tbody = document.createElement('tbody');//Létrehozok egy tbody elemet
+table.appendChild(tbody)//Hozzá appendelem a table-höz
+
+const uralkodo_nev = document.createElement('th')//Létrehozok egy th elemet
+uralkodo_nev.innerHTML = "Uralkodo" //Megadom az értékét
+tr.appendChild(uralkodo_nev);//Hozzá appendelem a sorhoz
+
+const esemeny = document.createElement('th')//Létrehozok egy th elemet
+esemeny.innerHTML = "Esemeny"//Megadom az értékét
+tr.appendChild(esemeny)//Hozzá appendelem a sorhoz
+
+const evszam = document.createElement('th');//Létrehozok egy th elemet
+evszam.innerHTML = "Evszam"//Megadom az értékét
+tr.appendChild(evszam)//Hozzá appendelem a sorhoz
+
+function render(){//Elkezdem megirni a render függvényt
+    const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
+    tbody.innerHTML = ''; // tbody innerHtml-je üres string
+
+    for (element of array) {//Elkezdem a for ciklust. Kiválasztom az array ,,element"-jét
+        let row = document.createElement('tr');//Létrehozok egy tr-t
+
+        const uralkodoCell = document.createElement('td'); //Létrehozok egy td-t
+        uralkodoCell.innerHTML = element.uralkodo_nev; //Megadom az innerHTML értékét
+        uralkodoCell.rowSpan = element.esemeny2 ? 2 : 1; // rowSpan-t vezetek be a megfelelő elrendezés érdekében
+        row.appendChild(uralkodoCell);//Hozzá appendelem a sorhoz
+
+        const esemeny1 = document.createElement('td');//Létrehozok egy td-t
+        esemeny1.innerHTML = element.esemeny1;//Megadom az innerHTML értékét
+        row.appendChild(esemeny1);//Hozzá appendelem a sorhoz
+
+        const evszam1 = document.createElement('td');//Létrehozok egy td-t
+        evszam1.innerHTML = element.evszam1;//Megadom az innerHTML értékét
+        row.appendChild(evszam1);//Hozzá appendelem a sorhoz
+
+        tablebody.appendChild(row); //Hozzá appendelem a sort
+
+        if (element.esemeny2 && element.evszam2) {//If elágazás létrehozása
+            const row1 = document.createElement('tr');//Létrehozok egy tr-t
+
+            const esemeny2 = document.createElement('td');//Létrehozok egy td-t
+            esemeny2.innerHTML = element.esemeny2;//Megadom hogy mi legyen a cella értéke
+            row1.appendChild(esemeny2);//Hozzá appendelem a sorhoz
+
+            const evszam2 = document.createElement('td');//Létrehozok egy td-t
+            evszam2.innerHTML = element.evszam2;//Megadom hogy mi legyen a cella értéke
+            row1.appendChild(evszam2);//Hozzá appendelem a sorhoz
+            tablebody.appendChild(row1); //Hozzá appendelem a tablebody-hoz
+        }
+    }
+}
+
+render();//Meghivom a render függvényt
+
+const form = document.getElementById("form") //Lekérem a html form id-ját
+
+form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
+    e.preventDefault()//Megakadályozom hogy a böngésző alapártelmezetten lefusson
+    const uralkodo_nev = document.getElementById("uralkodo_nev")//Lekérem a html form id-ját
+    const esemeny1 = document.getElementById("esemeny1")//Lekérem a html form id-ját
+    const esemeny2 = document.getElementById("esemeny2")//Lekérem a html form id-ját
+    const evszam1 = document.getElementById("evszam1")//Lekérem a html form id-ját
+    const evszam2 = document.getElementById("evszam2")//Lekérem a html form id-ját
+
+    const uzenet = "Az uralkodó nevének megadása kötelező" // Megadjuk a hibaüzenetet
+    const thisForm = e.currentTarget; //Eltárolom egy változóban az értéket
+    const errorElements = thisForm.querySelectorAll(".error"); // A formon belüli összes error classal rendelkező elemet kiválasztjuk
+    for(const errorElement of errorElements){ // Végig megyünk az összes visszakapott elemen
+        errorElement.innerHTML = ''; // Töröljük az elem tartalmát
+    }
+   
+    let valid = true; // A valid változó értéke igaz
+
+
+    const uralkodo_nevvalue = uralkodo_nev.value ///Eltárolom egy változóban az értéket
+    const esemeny1value = esemeny1.value///Eltárolom egy változóban az értéket
+    const esemeny2value = esemeny2.value///Eltárolom egy változóban az értéket
+    const evszam1value = evszam1.value///Eltárolom egy változóban az értéket
+    const evszam2value = evszam2.value//Eltárolom egy változóban az értéket
+   
+
+    if(uralkodo_nevvalue === ""){ // Ha az uralkodó név mező üres
+        const parent = uralkodo_nev.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
+        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
+            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
+        }
+        valid = false; // A valid változó értékét hamisra cseréljük
+    }
+
+    if(esemeny1value === ""){ // Ha az uralkodó név mező üres
+        const parent = esemeny1.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
+        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
+            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
+        }
+        valid = false; // A valid változó értékét hamisra cseréljük
+    }
+
+    if(esemeny2value === ""){ // Ha az uralkodó név mező üres
+        const parent = esemeny2.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
+        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
+            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
+        }
+        valid = false; // A valid változó értékét hamisra cseréljük
+    }
+
+    if(evszam1value === ""){ // Ha az uralkodó név mező üres
+        const parent = evszam1.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
+        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
+            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
+        }
+        valid = false; // A valid változó értékét hamisra cseréljük
+    }
+
+    if(evszam2value === ""){ // Ha az uralkodó név mező üres
+        const parent = evszam2.parentElement; // Eltárolom egy változóban az uralkodó név input-ját
+        const errors = parent.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+        if(errors != "") { // Ha találtunk ilyen mezőt akkor -->
+            errors.innerHTML = uzenet; // Kiirjuk a hibaüzenetet
+        }
+        valid = false; // A valid változó értékét hamisra cseréljük
+    }
+
+    if(valid){
+        const new_person = { //Létrehozok egy új elemet
+            uralkodo_nev: uralkodo_nevvalue, //Értéket adok
+            esemeny1: esemeny1value,//Értéket adok
+            esemeny2: esemeny2value,//Értéket adok
+            evszam1: evszam1value,//Értéket adok
+            evszam2: evszam2value//Értéket adok
+        }
+        array.push(new_person)//Hozzárakom az arrayhez az új elemet
+        render();//Meghivom a render függvényt mégegyszer
+        thisForm.reset(); // visszaallitjuk a formunkat az alapallapotba
+    }
+})
