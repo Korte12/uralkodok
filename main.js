@@ -92,17 +92,38 @@ function render(){//Elkezdem megirni a render függvényt
 render();//Meghivom a render függvényt
 
 function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
+
     let valid = true;//A valid értéke igaz
+
     if(inputElement.value === ""){//Ha az inputElement üres
+
         const parentElement = inputElement.parentElement //Értéket adunk
+
         const error = parentElement.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+
         if(error != "") { // Ha találtunk ilyen mezőt akkor -->
             error.innerHTML = ErrorMessage; // Kiirjuk a hibaüzenetet
         }
         valid = false // A valid változó értékét hamisra cseréljük
     }
+
     return valid //Valid értékkel térek vissza
 }
+
+function ValidateField2(firstElement, secondElement, ErrorMessage){ //Függvényt definiálunk
+
+    let valid = true //A valid értéke igaz
+
+    if(firstElement.value != "" && !ValidateField(secondElement, ErrorMessage)){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false //A valid értéke hamis
+    }
+
+    if(secondElement.value != "" && !ValidateField(firstElement, ErrorMessage)){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false //A valid értéke hamis
+    }
+
+    return valid //A valid értékkel térünk vissza
+}   
 
 const form = document.getElementById("form") //Lekérem a html form id-ját
 
@@ -141,11 +162,8 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
         valid = false;//A valid értéke hamis lesz
     }
 
-    if(esemeny2_V != "" && !ValidateField(evszam2H, "A mező kitöltése kötelező!")){ //Ellenörzöm hogy az esemeny2 üres e illetve függvénnyel validálok
-        valid = false //A valid értéke hamis lesz
-    }
-    if(evszam2_V != "" && !ValidateField(esemeny2H, "A mező kitöltése kötelező!")){ //Ellenörzöm hogy az esemeny2 üres e illetve függvénnyel validálok
-        valid = false //A valid értéke hamis lesz
+    if(!ValidateField2(esemeny2H, evszam2H, "A mező kitöltése kötelező!")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false;//A valid értéke hamis lesz
     }
 
     if(valid){ //Ha valid
