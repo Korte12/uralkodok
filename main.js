@@ -68,6 +68,17 @@ table.appendChild(tbody)//Hozzá appendelem a table-höz
 
 generateHeader() //Meghivom a függvényt
 
+/**
+ * Megcsinálja a táblázatunkat
+ * 
+ * @param {Object} data - A megjelenítendő adatok tömbje
+ * @param {string} uralkodo_nev - Az uralkodó neve
+ * @param {string} esemeny1 - Az első esemény
+ * @param {string} evszam1 - Az első esemény évszámá
+ * @param {string} esemeny2 - A második esemény ha van
+ * @param {string} evszam2 - A második esemény évszáma ha van
+ */
+
 function render(data){//Elkezdem megirni a render függvényt data paraméterrel
     const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
     tbody.innerHTML = ''; // tbody innerHtml-je üres string
@@ -107,6 +118,13 @@ function render(data){//Elkezdem megirni a render függvényt data paraméterrel
 
 render(array);//Meghivom a render függvényt és az array paramétert kapja
 
+/**
+ * Ellenőrzihogy egy adott input mező üres e és ha igen hibaüzenetet jelenít meg
+ * 
+ * @param {HTMLElement} inputElement - Az input mező amit validálni kell
+ * @param {string} ErrorMessage - A hibaüzenet szövege amit akkor jelenít meg ha a mező üres
+ * @returns {boolean} - Igaz ha a mező nem üres egyéb esetben hamis
+ */
 function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
 
     let valid = true;//A valid értéke igaz
@@ -125,6 +143,14 @@ function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
 
     return valid //Valid értékkel térek vissza
 }
+/**
+ * Ellenőrzi két mező értékét és ha bármelyik üres hibaüzenetet jelenít meg
+ * 
+ * @param {HTMLElement} firstElement - Az első elem amit validálni kell
+ * @param {HTMLElement} secondElement - A második elem amit validálni kell
+ * @param {string} ErrorMessage - A hibaüzenet szövege amit akkor jelenít meg ha a mező üres
+ * @returns {boolean} -  Igaz ha a mező nem üres egyéb esetben hamis
+ */
 
 function ValidateField2(firstElement, secondElement, ErrorMessage){ //Függvényt definiálunk
 
@@ -141,6 +167,12 @@ function ValidateField2(firstElement, secondElement, ErrorMessage){ //Függvény
     return valid //A valid értékkel térünk vissza
 }
 
+/**
+ * Létrehozza a táblázatunk fejlécét
+ * 
+ * @param {string} header - A fejléc szövegeit tartalmazó tömb
+ */
+
 function generateHeader(){ //Függvényt definiálunk
 const thead = document.createElement('thead'); //Létrehozok egy thead elemet
 table.appendChild(thead);//Hozzá appendelem a táblázathoz
@@ -156,6 +188,14 @@ thead.appendChild(tr);//Hozzá appendelem a fej részhez
 }
 
 const form = document.getElementById("form") //Lekérem a html form id-ját
+
+/**
+ * Létrehozza a formunkat
+ * 
+ * @param {Object} form1 - Az objektum tömbje ami tartalmazza a form adatait
+ * @param {string} label - A formon belüli tartalom szövege
+ * @param {string} id - A formon belüli tartalom azonositoja
+ */
 
 function generateForm(){  //Függvényt definiálunk
     const form = document.createElement('form') //Létrehozom a formot
