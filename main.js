@@ -141,16 +141,34 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
         valid = false;//A valid értéke hamis lesz
     }
 
-    if(valid){
-        const new_person = { //Létrehozok egy új elemet
-            uralkodo_nev: uralkodo_V, //Értéket adok
-            esemeny1: esemeny1_V,//Értéket adok
-            esemeny2: esemeny2_V,//Értéket adok
-            evszam1: evszam1_V,//Értéket adok
-            evszam2: evszam2_V//Értéket adok
-        }
-        array.push(new_person)//Hozzárakom az arrayhez az új elemet
-        render();//Meghivom a render függvényt mégegyszer
-        thisForm.reset(); // visszaallitjuk a formunkat az alapallapotba
+    if(esemeny2_V != "" && !ValidateField(evszam2H, "A mező kitöltése kötelező!")){ //Ellenörzöm hogy az esemeny2 üres e illetve függvénnyel validálok
+        valid = false //A valid értéke hamis lesz
     }
+    if(evszam2_V != "" && !ValidateField(esemeny2H, "A mező kitöltése kötelező!")){ //Ellenörzöm hogy az esemeny2 üres e illetve függvénnyel validálok
+        valid = false //A valid értéke hamis lesz
+    }
+
+    if(valid){ //Ha valid
+        if(esemeny2_V == "" && evszam2_V == ""){ //Ha az esemeny2 és az evszam2 üres akkor
+            const new_person =  { //Létrehozok egy új objektumot
+                uralkodo_nev: uralkodo_V, //Értéket adok
+                esemeny1: esemeny1_V,//Értéket adok
+                evszam1: evszam1_V,//Értéket adok
+            }
+            array.push(new_person)//Hozzárakom az arrayhez az új elemet
+        }
+        else { 
+            const new_person = { //Létrehozok egy új elemet
+                uralkodo_nev: uralkodo_V, //Értéket adok
+                esemeny1: esemeny1_V,//Értéket adok
+                esemeny2: esemeny2_V,//Értéket adok
+                evszam1: evszam1_V,//Értéket adok
+                evszam2: evszam2_V//Értéket adok
+            }
+        array.push(new_person)//Hozzárakom az arrayhez az új elemet
+        }
+    }
+    render();//Meghivom a render függvényt mégegyszer
+    thisForm.reset(); // Visszaállitom a formot alap állapotba
+    
 })
