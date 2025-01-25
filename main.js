@@ -41,11 +41,11 @@ table.appendChild(tbody)//Hozzá appendelem a table-höz
 
 generateHeader() //Meghivom a függvényt
 
-function render(){//Elkezdem megirni a render függvényt
+function render(data){//Elkezdem megirni a render függvényt data paraméterrel
     const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
     tbody.innerHTML = ''; // tbody innerHtml-je üres string
 
-    for (element of array) {//Elkezdem a for ciklust. Kiválasztom az array ,,element"-jét
+    for (element of data) {//Elkezdem a for ciklust. Kiválasztom az element data-ját
         let row = document.createElement('tr');//Létrehozok egy tr-t
 
         const uralkodoCell = document.createElement('td'); //Létrehozok egy td-t
@@ -78,7 +78,7 @@ function render(){//Elkezdem megirni a render függvényt
     }
 }
 
-render();//Meghivom a render függvényt
+render(array);//Meghivom a render függvényt és az array paramétert kapja
 
 function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
 
@@ -189,7 +189,7 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
         array.push(new_person)//Hozzárakom az arrayhez az új elemet
         }
     }
-    render();//Meghivom a render függvényt mégegyszer
+    render(array);//Meghivom a render függvényt mégegyszer és az array paramétert kapja
     thisForm.reset(); // Visszaállitom a formot alap állapotba
     
 })
