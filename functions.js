@@ -1,21 +1,14 @@
 /**
  * Megcsinálja a táblázatunkat
- * 
- * @param {Object} data - A megjelenítendő adatok tömbje
- * @param {string} uralkodo_nev - Az uralkodó neve
- * @param {string} esemeny1 - Az első esemény
- * @param {string} evszam1 - Az első esemény évszámá
- * @param {string} esemeny2 - A második esemény ha van
- * @param {string} evszam2 - A második esemény évszáma ha van
  */
 
 function render(data){//Elkezdem megirni a render függvényt data paraméterrel
+
     const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
-    tbody.innerHTML = ''; // tbody innerHtml-je üres string
+    tablebody.innerHTML = ''; // tbody innerHtml-je üres string
 
     for (element of data) {//Elkezdem a for ciklust. Kiválasztom az element data-ját
-        let row = document.createElement('tr');//Létrehozok egy tr-t
-
+        let row = document.createElement('tr');//Létrehozok egy tr-t        
         const uralkodoCell = document.createElement('td'); //Létrehozok egy td-t
         uralkodoCell.innerHTML = element.uralkodo_nev; //Megadom az innerHTML értékét
         uralkodoCell.rowSpan = element.esemeny2 ? 2 : 1; // rowSpan-t vezetek be a megfelelő elrendezés érdekében
@@ -31,7 +24,7 @@ function render(data){//Elkezdem megirni a render függvényt data paraméterrel
 
         tablebody.appendChild(row); //Hozzá appendelem a sort
 
-        if (element.esemeny2 && element.evszam2) {//If elágazás létrehozása
+        if (element.esemeny2 && element.evszam2) {//Ha az element.esemény2 és element.evszam2
             const row1 = document.createElement('tr');//Létrehozok egy tr-t
 
             const esemeny2 = document.createElement('td');//Létrehozok egy td-t
@@ -49,9 +42,6 @@ function render(data){//Elkezdem megirni a render függvényt data paraméterrel
 /**
  * Ellenőrzihogy egy adott input mező üres e és ha igen hibaüzenetet jelenít meg
  * 
- * @param {HTMLElement} inputElement - Az input mező amit validálni kell
- * @param {string} ErrorMessage - A hibaüzenet szövege amit akkor jelenít meg ha a mező üres
- * @returns {boolean} - Igaz ha a mező nem üres egyéb esetben hamis
  */
 function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
 
@@ -59,11 +49,11 @@ function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
 
     if(inputElement.value === ""){//Ha az inputElement üres
 
-        const parentElement = inputElement.parentElement //Értéket adunk
+        const parentElement = inputElement.parentElement //Az inputElement szülő elemét hozzá rendeljük a parentElementhez
 
         const error = parentElement.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
 
-        if(error != "") { // Ha találtunk ilyen mezőt akkor -->
+        if(error.innerHTML === "") { // Ha az error innerHTML-je üres akkor megyünk bele
             error.innerHTML = ErrorMessage; // Kiirjuk a hibaüzenetet
         }
         valid = false // A valid változó értékét hamisra cseréljük
@@ -74,22 +64,17 @@ function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
 
 /**
  * Ellenőrzi két mező értékét és ha bármelyik üres hibaüzenetet jelenít meg
- * 
- * @param {HTMLElement} firstElement - Az első elem amit validálni kell
- * @param {HTMLElement} secondElement - A második elem amit validálni kell
- * @param {string} ErrorMessage - A hibaüzenet szövege amit akkor jelenít meg ha a mező üres
- * @returns {boolean} -  Igaz ha a mező nem üres egyéb esetben hamis
  */
 
 function ValidateField2(firstElement, secondElement, ErrorMessage){ //Függvényt definiálunk
 
     let valid = true //A valid értéke igaz
 
-    if(firstElement.value != "" && !ValidateField(secondElement, ErrorMessage)){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+    if(firstElement.value != "" && !ValidateField(secondElement, ErrorMessage)){ //Ellenőrizzük hogy a két mező közül az egyik kivan e töltve és ha igen akkor a másik mezőt validáljuk
         valid = false //A valid értéke hamis
     }
 
-    if(secondElement.value != "" && !ValidateField(firstElement, ErrorMessage)){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+    if(secondElement.value != "" && !ValidateField(firstElement, ErrorMessage)){ //Ellenőrizzük hogy a két mező közül az egyik kivan e töltve és ha igen akkor a másik mezőt validáljuk
         valid = false //A valid értéke hamis
     }
 
@@ -99,18 +84,17 @@ function ValidateField2(firstElement, secondElement, ErrorMessage){ //Függvény
 /**
  * Létrehozza a táblázatunk fejlécét
  * 
- * @param {string} header - A fejléc szövegeit tartalmazó tömb
  */
 
-function generateHeader(){ //Függvényt definiálunk
+function generateHeader(headerF){ //Függvényt definiálunk
 const thead = document.createElement('thead'); //Létrehozok egy thead elemet
 table.appendChild(thead);//Hozzá appendelem a táblázathoz
 
 const tr = document.createElement('tr');//Létrehozok egy sor elemet
 thead.appendChild(tr);//Hozzá appendelem a fej részhez
-    for(const i in header){ //Végig iterálok a header objektumon
+    for(const i in headerF){ //Végig iterálok a header objektumon
         const th = document.createElement('th') //Létrehozok egy th elemet
-        th.innerHTML = header[i] //A th tartalma a header objektumban eltárolt értékek lesznek
+        th.innerHTML = headerF[i] //A th tartalma a header objektumban eltárolt értékek lesznek
         tr.appendChild(th) //Hozzá appendeljük a sorhoz a th-t
     }
  
@@ -119,24 +103,22 @@ thead.appendChild(tr);//Hozzá appendelem a fej részhez
 /**
  * Létrehozza a formunkat
  * 
- * @param {Object} form1 - Az objektum tömbje ami tartalmazza a form adatait
- * @param {string} label - A formon belüli tartalom szövege
- * @param {string} id - A formon belüli tartalom azonositoja
  */
 
-function generateForm(){  //Függvényt definiálunk
+function generateForm(formF){  //Függvényt definiálunk
     const form = document.createElement('form') //Létrehozom a formot
     document.body.appendChild(form) //Hozzá appendelem a body-hoz
     form.id = "form" //A form id-ja form
     form.action = "#" //A form action-je #
 
-    for(let i = 0; i < form1.length; i++ ){  //A form összes elemén végig megyünk egy ciklussal
+    for(let i = 0; i < formF.length; i++ ){  //A form összes elemén végig megyünk egy ciklussal
         const div =  document.createElement('div') //Létrehozok egy div elemet
         form.appendChild(div) //Hozzá appendelem a formhoz
         
         const label = document.createElement('label') //Létrehozok egy label elemet
         div.appendChild(label) //Hozzá appendelem a div-hez
 
+        label.htmlFor = form1[i].id //htmlFor egyenlő lesz a form-idjával
         label.innerHTML = form1[i].label //A label innerHTML értéke a form1 objektumban eltárolt label lesz
 
         const br = document.createElement('br') //Sortörést hozok létre

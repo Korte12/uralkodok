@@ -58,7 +58,7 @@ const form1 = [// A tömb létehozása
     }   
 ]
 
-generateForm() //Meghivom a függvényt
+generateForm(form1) //Meghivom a függvényt
 
 const table = document.createElement('table'); //Létrehozok egy table elemet ami a táblázatom lesz
 document.body.appendChild(table); //Hozzá appendelem a body-hoz
@@ -66,7 +66,7 @@ document.body.appendChild(table); //Hozzá appendelem a body-hoz
 const tbody = document.createElement('tbody');//Létrehozok egy tbody elemet
 table.appendChild(tbody)//Hozzá appendelem a table-höz
 
-generateHeader() //Meghivom a függvényt
+generateHeader(header) //Meghivom a függvényt
 
 render(array);//Meghivom a render függvényt és az array paramétert kapja
 
