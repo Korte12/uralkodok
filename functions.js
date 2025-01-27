@@ -5,7 +5,7 @@
 function render(data){//Elkezdem megirni a render függvényt data paraméterrel
 
     const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
-    tablebody.innerHTML = ''; // tbody innerHtml-je üres string
+    tbody.innerHTML = ''; // tbody innerHtml-je üres string
 
     for (element of data) {//Elkezdem a for ciklust. Kiválasztom az element data-ját
         let row = document.createElement('tr');//Létrehozok egy tr-t        
@@ -53,7 +53,7 @@ function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
 
         const error = parentElement.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
 
-        if(error.innerHTML === "") { // Ha az error innerHTML-je üres akkor megyünk bele
+        if(error) { // Ha az error üres akkor
             error.innerHTML = ErrorMessage; // Kiirjuk a hibaüzenetet
         }
         valid = false // A valid változó értékét hamisra cseréljük
