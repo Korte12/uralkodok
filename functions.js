@@ -2,9 +2,7 @@
  * Megcsinálja a táblázatunkat
  */
 
-function render(data){//Elkezdem megirni a render függvényt data paraméterrel
-
-    const tablebody = tbody;//Létrehozok egy tablebody-t aminek az értéke tbody
+function render(data, tbody){//Elkezdem megirni a render függvényt data paraméterrel
     tbody.innerHTML = ''; // tbody innerHtml-je üres string
 
     for (element of data) {//Elkezdem a for ciklust. Kiválasztom az element data-ját
@@ -22,7 +20,7 @@ function render(data){//Elkezdem megirni a render függvényt data paraméterrel
         evszam1.innerHTML = element.evszam1;//Megadom az innerHTML értékét
         row.appendChild(evszam1);//Hozzá appendelem a sorhoz
 
-        tablebody.appendChild(row); //Hozzá appendelem a sort
+        tbody.appendChild(row); //Hozzá appendelem a sort
 
         if (element.esemeny2 && element.evszam2) {//Ha az element.esemény2 és element.evszam2
             const row1 = document.createElement('tr');//Létrehozok egy tr-t
@@ -34,7 +32,7 @@ function render(data){//Elkezdem megirni a render függvényt data paraméterrel
             const evszam2 = document.createElement('td');//Létrehozok egy td-t
             evszam2.innerHTML = element.evszam2;//Megadom hogy mi legyen a cella értéke
             row1.appendChild(evszam2);//Hozzá appendelem a sorhoz
-            tablebody.appendChild(row1); //Hozzá appendelem a tablebody-hoz
+            tbody.appendChild(row1); //Hozzá appendelem a tablebody-hoz
         }
     }
 }

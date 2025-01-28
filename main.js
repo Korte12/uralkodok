@@ -68,7 +68,7 @@ table.appendChild(tbody)//Hozzá appendelem a table-höz
 
 generateHeader(header) //Meghivom a függvényt
 
-render(array);//Meghivom a render függvényt és az array paramétert kapja
+render(array, tbody);//Meghivom a render függvényt és az array paramétert kapja
 
 const form = document.getElementById("form") //Lekérem a html form id-ját
 
@@ -131,7 +131,7 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
         array.push(new_person)//Hozzárakom az arrayhez az új elemet
         }
     }
-    render(array);//Meghivom a render függvényt mégegyszer és az array paramétert kapja
+    render(array, tbody);//Meghivom a render függvényt mégegyszer és az array paramétert kapja
     thisForm.reset(); // Visszaállitom a formot alap állapotba
     
 })
